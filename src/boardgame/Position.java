@@ -4,15 +4,13 @@ public class Position {
 	
 	private int linha, coluna;
 	
-	public Position() {
-		
-	}
-	
+	/* Construtor com argumentos */
 	public Position(int linha, int coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
 	}
 	
+	/* Getters e Setters */
 	public int getLinha() {
 		return linha;
 	}
@@ -29,6 +27,7 @@ public class Position {
 		this.coluna = coluna;
 	}
 	
+	/* toString */
 	@Override
 	public String toString() {
 		return  linha
