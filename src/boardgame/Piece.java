@@ -1,6 +1,6 @@
 package boardgame;
 
-public class Piece {
+public abstract class Piece {
 
 	/*
 	 * Essa posição não é uma posição do Xadrez, é uma posição simples de matriz por
@@ -25,5 +25,22 @@ public class Piece {
 	protected Board getTabuleiro() {
 		return tabuleiro;
 	}
-
+	
+	public abstract boolean[][] PossibleMoves ();
+	
+	public boolean possibleMove(Position posicao) {
+		return PossibleMoves()[posicao.getLinha()][posicao.getColuna()];
+	}
+	
+	public boolean isThereAnyPossibleMove() {
+		boolean[][] mat = PossibleMoves();
+		for (int i = 0; i < mat.length; i++) {
+			for(int j = 0; j < mat.length; j++) {
+				if (mat[i][j]) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
