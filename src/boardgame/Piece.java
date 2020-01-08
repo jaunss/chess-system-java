@@ -26,14 +26,14 @@ public abstract class Piece {
 		return tabuleiro;
 	}
 	
-	public abstract boolean[][] PossibleMoves ();
+	public abstract boolean[][] possibleMoves ();
 	
 	public boolean possibleMove(Position posicao) {
-		return PossibleMoves()[posicao.getLinha()][posicao.getColuna()];
+		return possibleMoves()[posicao.getLinha()][posicao.getColuna()];
 	}
 	
 	public boolean isThereAnyPossibleMove() {
-		boolean[][] mat = PossibleMoves();
+		boolean[][] mat = possibleMoves();
 		for (int i = 0; i < mat.length; i++) {
 			for(int j = 0; j < mat.length; j++) {
 				if (mat[i][j]) {
