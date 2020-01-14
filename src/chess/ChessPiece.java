@@ -9,10 +9,9 @@ public abstract class ChessPiece extends Piece {
 	private Color cor;
 	private int moveCount;
 	
-	public ChessPiece(Board tabuleiro, Color cor, int moveCount) {
+	public ChessPiece(Board tabuleiro, Color cor) {
 		super(tabuleiro);
 		this.cor = cor;
-		this.moveCount = moveCount;
 	}
 	
 	public Color getCor() {
@@ -32,11 +31,11 @@ public abstract class ChessPiece extends Piece {
 		return p != null && p.getCor() != cor;
 	}
 	
-	protected void increaseMoveCount() {
-		
+	public void increaseMoveCount() {
+		moveCount++;
 	}
 	
-	protected void decreaseMoveCount() {
-		
+	public void decreaseMoveCount() {
+		moveCount--;
 	}
 }
