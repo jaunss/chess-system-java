@@ -88,9 +88,9 @@ public class ChessMatch {
 	}
 
 	private Piece makeMove(Position source, Position target) {
-		ChessPiece piece = (ChessPiece)tabuleiro.removePiece(source);
+		ChessPiece piece = (ChessPiece) tabuleiro.removePiece(source);
 		piece.increaseMoveCount();
-		
+
 		Piece p = tabuleiro.removePiece(source);
 		Piece capturedPiece = tabuleiro.removePiece(target);
 		tabuleiro.placePiece(p, target);
@@ -99,13 +99,34 @@ public class ChessMatch {
 			piecesOnTheBoard.remove(capturedPiece);
 			capturedPieces.add(capturedPiece);
 		}
+		
+		/* Movimento Especial Roque Pequeno */
+		if (p instanceof King && target.getColuna() == source.getColuna() + 2) {
+			Position sourceT = new Position(source.getLinha(), source.getColuna() + 3);
+			Position targetT = new Position(target.getLinha(), target.getLinha() + 1);
+
+			ChessPiece rook = (ChessPiece) tabuleiro.removePiece(sourceT);
+			tabuleiro.placePiece(rook, targetT);
+			rook.increaseMoveCount();
+		}
+		
+		/* Movimento Especial Roque Grande */
+		if (p instanceof King && target.getColuna() == source.getColuna() - 2) {
+			Position sourceT = new Position(source.getLinha(), source.getColuna() - 4);
+			Position targetT = new Position(target.getLinha(), target.getLinha() - 1);
+
+			ChessPiece rook = (ChessPiece) tabuleiro.removePiece(sourceT);
+			tabuleiro.placePiece(rook, targetT);
+			rook.increaseMoveCount();
+		}
+
 		return capturedPiece;
 	}
 
 	private void undoMove(Position source, Position target, Piece capturedPiece) {
-		ChessPiece piece = (ChessPiece)tabuleiro.removePiece(target);
+		ChessPiece piece = (ChessPiece) tabuleiro.removePiece(target);
 		piece.decreaseMoveCount();
-		
+
 		Piece p = tabuleiro.removePiece(target);
 		tabuleiro.placePiece(p, source);
 
@@ -113,6 +134,27 @@ public class ChessMatch {
 			tabuleiro.placePiece(capturedPiece, target);
 			capturedPieces.remove(capturedPiece);
 			piecesOnTheBoard.add(capturedPiece);
+		}
+		
+		
+		/* Movimento Especial Roque Pequeno */
+		if (p instanceof King && target.getColuna() == source.getColuna() + 2) {
+			Position sourceT = new Position(source.getLinha(), source.getColuna() + 3);
+			Position targetT = new Position(target.getLinha(), target.getLinha() + 1);
+
+			ChessPiece rook = (ChessPiece) tabuleiro.removePiece(targetT);
+			tabuleiro.placePiece(rook, sourceT);
+			rook.decreaseMoveCount();
+		}
+		
+		/* Movimento Especial Roque Grande */
+		if (p instanceof King && target.getColuna() == source.getColuna() - 2) {
+			Position sourceT = new Position(source.getLinha(), source.getColuna() - 4);
+			Position targetT = new Position(target.getLinha(), target.getLinha() - 1);
+
+			ChessPiece rook = (ChessPiece) tabuleiro.removePiece(targetT);
+			tabuleiro.placePiece(rook, sourceT);
+			rook.decreaseMoveCount();
 		}
 	}
 
@@ -207,7 +249,7 @@ public class ChessMatch {
 		placeNewPiece('b', 1, new Knight(tabuleiro, Color.branco));
 		placeNewPiece('c', 1, new Bishop(tabuleiro, Color.branco));
 		placeNewPiece('d', 1, new Queen(tabuleiro, Color.branco));
-		placeNewPiece('e', 1, new King(tabuleiro, Color.branco));
+		placeNewPiece('e', 1, new King(tabuleiro, Color.branco, this));
 		placeNewPiece('f', 1, new Bishop(tabuleiro, Color.branco));
 		placeNewPiece('g', 1, new Knight(tabuleiro, Color.branco));
 		placeNewPiece('h', 1, new Rook(tabuleiro, Color.branco));
@@ -219,13 +261,12 @@ public class ChessMatch {
 		placeNewPiece('f', 2, new Pawn(tabuleiro, Color.branco));
 		placeNewPiece('g', 2, new Pawn(tabuleiro, Color.branco));
 		placeNewPiece('h', 2, new Pawn(tabuleiro, Color.branco));
-		
-		
+
 		placeNewPiece('a', 8, new Rook(tabuleiro, Color.preto));
 		placeNewPiece('b', 8, new Knight(tabuleiro, Color.preto));
 		placeNewPiece('c', 8, new Bishop(tabuleiro, Color.preto));
 		placeNewPiece('d', 8, new Queen(tabuleiro, Color.preto));
-		placeNewPiece('e', 8, new King(tabuleiro, Color.preto));
+		placeNewPiece('e', 8, new King(tabuleiro, Color.preto, this));
 		placeNewPiece('f', 8, new Bishop(tabuleiro, Color.preto));
 		placeNewPiece('g', 8, new Knight(tabuleiro, Color.preto));
 		placeNewPiece('h', 8, new Rook(tabuleiro, Color.preto));
