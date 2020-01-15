@@ -12,11 +12,6 @@ public class Rook extends ChessPiece {
 	}
 
 	@Override
-	public String toString() {
-		return "R";
-	}
-
-	@Override
 	public boolean[][] possibleMoves() {
 		boolean[][] mat = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunhas()];
 
@@ -61,8 +56,11 @@ public class Rook extends ChessPiece {
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
-		
-		
 		return mat;
+	}
+	
+	@Override
+	public String toString() {
+		return "R";
 	}
 }
