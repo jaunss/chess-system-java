@@ -6,8 +6,8 @@ import chess.Color;
 
 public class Knight extends ChessPiece {
 
-	public Knight(Board tabuleiro, Color cor, int moveCount) {
-		super(tabuleiro, cor, moveCount);
+	public Knight(Board tabuleiro, Color cor) {
+		super(tabuleiro, cor);
 		
 	}
 

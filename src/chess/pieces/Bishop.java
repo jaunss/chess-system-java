@@ -6,8 +6,8 @@ import chess.Color;
 
 public class Bishop extends ChessPiece {
 
-	public Bishop(Board tabuleiro, Color cor, int moveCount) {
-		super(tabuleiro, cor, moveCount);
+	public Bishop(Board tabuleiro, Color cor) {
+		super(tabuleiro, cor);
 	}
 
 	@Override

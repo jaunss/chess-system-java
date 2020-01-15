@@ -8,6 +8,7 @@ import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Rook;
 
 public class ChessMatch {
@@ -199,18 +200,29 @@ public class ChessMatch {
 	}
 
 	private void initialSetup() {
-		placeNewPiece('c', 1, new Rook(tabuleiro, Color.branco, turn));
-		placeNewPiece('c', 2, new Rook(tabuleiro, Color.branco, turn));
-		placeNewPiece('d', 2, new Rook(tabuleiro, Color.branco, turn));
-		placeNewPiece('e', 2, new Rook(tabuleiro, Color.branco, turn));
-		placeNewPiece('e', 1, new Rook(tabuleiro, Color.branco, turn));
-		placeNewPiece('d', 1, new King(tabuleiro, Color.branco, turn));
-
-		placeNewPiece('c', 7, new Rook(tabuleiro, Color.preto, turn));
-		placeNewPiece('c', 8, new Rook(tabuleiro, Color.preto, turn));
-		placeNewPiece('d', 7, new Rook(tabuleiro, Color.preto, turn));
-		placeNewPiece('e', 7, new Rook(tabuleiro, Color.preto, turn));
-		placeNewPiece('e', 8, new Rook(tabuleiro, Color.preto, turn));
-		placeNewPiece('d', 8, new King(tabuleiro, Color.preto, turn));
+		placeNewPiece('a', 1, new Rook(tabuleiro, Color.branco));
+		placeNewPiece('e', 1, new King(tabuleiro, Color.branco));
+		placeNewPiece('h', 1, new Rook(tabuleiro, Color.branco));
+		placeNewPiece('a', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('b', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('c', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('d', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('e', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('f', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('g', 2, new Pawn(tabuleiro, Color.branco));
+		placeNewPiece('h', 2, new Pawn(tabuleiro, Color.branco));
+		
+		
+		placeNewPiece('a', 8, new Rook(tabuleiro, Color.preto));
+		placeNewPiece('e', 8, new King(tabuleiro, Color.preto));
+		placeNewPiece('h', 8, new Rook(tabuleiro, Color.preto));
+		placeNewPiece('a', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('b', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('c', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('d', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('e', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('f', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('g', 7, new Pawn(tabuleiro, Color.preto));
+		placeNewPiece('h', 7, new Pawn(tabuleiro, Color.preto));
 	}
 }
