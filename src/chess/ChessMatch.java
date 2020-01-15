@@ -1,5 +1,6 @@
 package chess;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class ChessMatch {
 	private boolean check, checkMate;
 
 	private Board tabuleiro;
-	private ChessPiece enPassantVulnerable;
+	private ChessPiece enPassantVulnerable, promoted;
 
 	private List<Piece> piecesOnTheBoard = new ArrayList<Piece>();
 	private List<Piece> capturedPieces = new ArrayList<Piece>();
@@ -51,6 +52,10 @@ public class ChessMatch {
 
 	public ChessPiece getEnPassantVulnerable() {
 		return enPassantVulnerable;
+	}
+	
+	public ChessPiece getPromoted() {
+		return promoted;
 	}
 
 	public ChessPiece[][] getPecas() {
@@ -83,7 +88,16 @@ public class ChessMatch {
 		}
 
 		ChessPiece movedPiece = (ChessPiece) tabuleiro.peca(target);
-
+		
+		/* Movimento Especial Promoted */
+		promoted = null;
+		if (movedPiece instanceof Pawn) {
+			if ((movedPiece.getCor() == Color.branco && target.getLinha() == 0) || (movedPiece.getCor() == Color.preto && target.getLinha() == 7)) {
+				promoted = (ChessPiece) tabuleiro.peca(target);
+				promoted = replacePromotedPiece("Q");
+			}
+		}
+		
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 
 		if (testeCheckMate(currentPlayer)) {
@@ -101,6 +115,32 @@ public class ChessMatch {
 		}
 
 		return (ChessPiece) capturedPiece;
+	}
+	
+	public ChessPiece replacePromotedPiece(String type) {
+		if (promoted == null) {
+			throw new IllegalStateException("Não há peça para ser promovida.");
+		}
+		if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
+			throw new InvalidParameterException("Tipo inválido para promoção.");
+		}
+		
+		Position pos = promoted.getChessPosition().toPosition();
+		Piece p = tabuleiro.removePiece(pos);
+		piecesOnTheBoard.remove(p);
+		
+		ChessPiece newPiece = newPiece(type, promoted.getCor());
+		tabuleiro.placePiece(newPiece, pos);
+		piecesOnTheBoard.add(newPiece);
+		
+		return newPiece;
+	}
+	
+	private ChessPiece newPiece(String type, Color cor) {
+		if (type.equals("B")) return new Bishop(tabuleiro, cor);
+		if (type.equals("N")) return new Knight(tabuleiro, cor);
+		if (type.equals("Q")) return new Queen(tabuleiro, cor);
+		return new Rook(tabuleiro, cor);
 	}
 
 	private Piece makeMove(Position source, Position target) {
